@@ -1,0 +1,3 @@
+[submodule "Provinatus"]
+	path = Provinatus
+	url = https://github.com/michaelwestbrook/Provinatus.git
