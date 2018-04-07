@@ -1,0 +1,13 @@
+{
+  "name": "Provinatus-Build",
+  "version": "1.0.0",
+  "description": "Build/Test/Deploy Provinatus",
+  "main": "index.js",
+  "repository": "https://github.com/michaelwestbrook/Provinatus-Build.git",
+  "author": "michaelwestbrook <michaelrwestbrook@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "grunt": "^1.0.2"
+  }
+}
