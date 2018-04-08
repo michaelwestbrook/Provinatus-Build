@@ -1,16 +1,13 @@
 const os = require('os');
+const path = require('path');
 
 module.exports = function (grunt) {
-  const modName = 'Provinatus'
-  const esoHome = `${os.homedir()}/Documents/Elder Scrolls Online`;
-  const addonFolder = `${esoHome}/live/AddOns`;
-  const provinatusFolder = `${addonFolder}/${modName}`
-  const savedVarsLocation = `${esoHome}/live/SavedVariables/${modName}.lua`
+  const modName = 'Provinatus';
   grunt.initConfig({
     clean: {
-      build: [provinatusFolder],
-      savedVars: [savedVarsLocation],
-      release: [`${modName}.zip`],
+      build: [grunt.option('provinatusFolder')],
+      savedVars: [grunt.option('savedVarsLocation')],
+      release: [`${grunt.option('releaseFolder')}/${modName}.zip`],
       options: {
         force: true
       }
@@ -39,7 +36,7 @@ module.exports = function (grunt) {
               'TeamFormation.xml',
               'esoui-readme.txt'
             ],
-            dest: `${addonFolder}/${modName}`
+            dest: grunt.option('provinatusFolder')
           }
         ],
       }
@@ -47,10 +44,10 @@ module.exports = function (grunt) {
     compress: {
       main: {
         options: {
-          archive: `${modName}.zip`
+          archive: `${grunt.option('releaseFolder')}/${modName}.zip`
         },
         files: [
-          { cwd: `${addonFolder}`, src: [`${modName}/**`], dest: './' }
+          { expand: true, cwd: grunt.option('provinatusFolder'), src: ['./**'], dest: 'Provinatus' }
         ]
       }
     }
