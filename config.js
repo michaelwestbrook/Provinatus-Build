@@ -1,5 +1,5 @@
 const provinatusConfig = {
-  version: process.env['Build.BuildNumber'] ? process.env['Build.BuildNumber'] : 'local-build'
+  version: process.env['BUILD_BUILDNUMBER'] ? process.env['BUILD_BUILDNUMBER']  : 'local-build'
 };
 
 module.exports = provinatusConfig

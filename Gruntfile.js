@@ -46,7 +46,7 @@ module.exports = function (grunt) {
     compress: {
       main: {
         options: {
-          archive: `${getReleaseFolder()}/${modName}.zip`
+          archive: `${getReleaseFolder()}/release/${modName}.zip`
         },
         files: [
           { expand: true, cwd: getReleaseFolder(), src: ['./**'], dest: './' }
