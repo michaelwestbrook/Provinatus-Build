@@ -1,6 +1,4 @@
-const os = require('os');
-const path = require('path');
-
+const provinatusConfig = require('./config');
 module.exports = function (grunt) {
   const modName = 'Provinatus';
   grunt.initConfig({
@@ -36,7 +34,7 @@ module.exports = function (grunt) {
               'TeamFormation.xml',
               'esoui-readme.txt'
             ],
-            dest: grunt.option('provinatusFolder')
+            dest: `${grunt.option('releaseFolder')}/${modName}`
           }
         ],
       }
@@ -50,10 +48,21 @@ module.exports = function (grunt) {
           { expand: true, cwd: grunt.option('provinatusFolder'), src: ['./**'], dest: 'Provinatus' }
         ]
       }
+    },
+    replace: {
+      version: {
+        src: [`${grunt.option('releaseFolder')}/${modName}/function/LAM2Panel.lua`],
+        dest: `${grunt.option('releaseFolder')}/${modName}/function/LAM2Panel.lua`,
+        replacements: [{
+          from: '{{**DEVELOPMENTVERSION**}}',
+          to: provinatusConfig.version
+        }]
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-clean')
   grunt.loadNpmTasks('grunt-contrib-copy')
   grunt.loadNpmTasks('grunt-contrib-compress');
+  grunt.loadNpmTasks('grunt-text-replace');
 }
