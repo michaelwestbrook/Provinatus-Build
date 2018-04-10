@@ -59,7 +59,7 @@ module.exports = function (grunt) {
         dest: `${getReleaseFolder()}/${modName}/function/LAM2Panel.lua`,
         replacements: [{
           from: '{{**DEVELOPMENTVERSION**}}',
-          to: provinatusConfig.version
+          to: grunt.option('versionNumber') ? grunt.option('versionNumber') : provinatusConfig.version
         }]
       }
     }
