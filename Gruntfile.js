@@ -1,11 +1,15 @@
 const provinatusConfig = require('./config');
+
 module.exports = function (grunt) {
   const modName = 'Provinatus';
+
+  function getReleaseFolder() {
+    return grunt.option('releaseFolder') ? grunt.option('releaseFolder') : 'build';
+  }
+
   grunt.initConfig({
     clean: {
-      build: [grunt.option('provinatusFolder')],
-      savedVars: [grunt.option('savedVarsLocation')],
-      release: [`${grunt.option('releaseFolder')}/${modName}.zip`],
+      build: [getReleaseFolder()],
       options: {
         force: true
       }
@@ -34,7 +38,7 @@ module.exports = function (grunt) {
               'TeamFormation.xml',
               'esoui-readme.txt'
             ],
-            dest: `${grunt.option('releaseFolder')}/${modName}`
+            dest: `${getReleaseFolder()}/${modName}`
           }
         ],
       }
@@ -42,17 +46,17 @@ module.exports = function (grunt) {
     compress: {
       main: {
         options: {
-          archive: `${grunt.option('releaseFolder')}/${modName}.zip`
+          archive: `${getReleaseFolder()}/${modName}.zip`
         },
         files: [
-          { expand: true, cwd: grunt.option('provinatusFolder'), src: ['./**'], dest: 'Provinatus' }
+          { expand: true, cwd: getReleaseFolder(), src: ['./**'], dest: './' }
         ]
       }
     },
     replace: {
       version: {
-        src: [`${grunt.option('releaseFolder')}/${modName}/function/LAM2Panel.lua`],
-        dest: `${grunt.option('releaseFolder')}/${modName}/function/LAM2Panel.lua`,
+        src: [`${getReleaseFolder()}/${modName}/function/LAM2Panel.lua`],
+        dest: `${getReleaseFolder()}/${modName}/function/LAM2Panel.lua`,
         replacements: [{
           from: '{{**DEVELOPMENTVERSION**}}',
           to: provinatusConfig.version
