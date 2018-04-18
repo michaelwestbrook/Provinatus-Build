@@ -38,7 +38,7 @@ module.exports = function (grunt) {
               'TeamFormation.xml',
               'esoui-readme.txt'
             ],
-            dest: `${getReleaseFolder()}/${modName}`
+            dest: `${getReleaseFolder()}`
           }
         ],
       }
@@ -46,10 +46,10 @@ module.exports = function (grunt) {
     compress: {
       main: {
         options: {
-          archive: `${getReleaseFolder()}/release/${modName}.zip`
+          archive: `${getReleaseFolder()}/${modName}.zip`
         },
         files: [
-          { expand: true, cwd: getReleaseFolder(), src: ['./**'], dest: './' }
+          { expand: true, cwd: getReleaseFolder(), src: ['./**'], dest: './Provinatus' }
         ]
       }
     },

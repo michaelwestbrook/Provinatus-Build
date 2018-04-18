@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "deploy": "grunt clean:build copy replace",
-    "deploy-mikes": "grunt copy replace --releaseFolder=\"C:/Users/Mike/Documents/Elder Scrolls Online/live/AddOns/\"",
+    "deploy-mikes": "grunt clean:build copy replace --releaseFolder=\"C:/Users/Mike/Documents/Elder Scrolls Online/live/AddOns/Provinatus\"",
     "release": "grunt copy replace compress"
   },
   "devDependencies": {
