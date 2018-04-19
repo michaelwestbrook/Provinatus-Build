@@ -21,7 +21,6 @@ module.exports = function (grunt) {
             expand: true,
             cwd: `./${modName}`,
             src: [
-              'debug/**',
               'function/**',
               'lang/**',
               'lib/LibAddonMenu-2.0/LibAddonMenu-2.0/**',
