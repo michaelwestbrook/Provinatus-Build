@@ -55,8 +55,8 @@ module.exports = function (grunt) {
     },
     replace: {
       version: {
-        src: [`${getReleaseFolder()}/function/LAM2Panel.lua`],
-        dest: `${getReleaseFolder()}/function/LAM2Panel.lua`,
+        src: [`${getReleaseFolder()}/function/LAM2Panel.lua`, `${getReleaseFolder()}/Provinatus.txt`],
+        overwrite: true,
         replacements: [{
           from: '{{**DEVELOPMENTVERSION**}}',
           to: grunt.option('versionNumber') ? grunt.option('versionNumber') : provinatusConfig.version
