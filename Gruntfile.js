@@ -38,7 +38,7 @@ module.exports = function (grunt) {
               'TeamFormation.xml',
               'esoui-readme.txt'
             ],
-            dest: `${getReleaseFolder()}`
+            dest: `${getReleaseFolder()}/${modName}`
           }
         ],
       }
@@ -49,13 +49,13 @@ module.exports = function (grunt) {
           archive: `${getReleaseFolder()}/${modName}.zip`
         },
         files: [
-          { expand: true, cwd: getReleaseFolder(), src: ['./**'], dest: './Provinatus' }
+          { expand: true, cwd: getReleaseFolder(), src: [`./${modName}/**`], dest: `./` }
         ]
       }
     },
     replace: {
       version: {
-        src: [`${getReleaseFolder()}/function/LAM2Panel.lua`, `${getReleaseFolder()}/Provinatus.txt`],
+        src: [`${getReleaseFolder()}/${modName}/function/LAM2Panel.lua`, `${getReleaseFolder()}/${modName}/Provinatus.txt`],
         overwrite: true,
         replacements: [{
           from: '{{**DEVELOPMENTVERSION**}}',
