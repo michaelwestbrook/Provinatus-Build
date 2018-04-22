@@ -35,7 +35,8 @@ module.exports = function (grunt) {
               'Provinatus.txt',
               'TeamFormation.lua',
               'TeamFormation.xml',
-              'esoui-readme.txt'
+              'esoui-readme.txt',
+              'ZOSDisclosure.txt'
             ],
             dest: `${getReleaseFolder()}/${modName}`
           }
