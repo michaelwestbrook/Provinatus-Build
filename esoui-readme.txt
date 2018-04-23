@@ -3,6 +3,7 @@ Modified [URL="http://www.esoui.com/downloads/info1135-ProvisionsTeamFormation.h
 
 [SIZE="5"][COLOR="Plum"]Added player icon settings[/COLOR][/SIZE]
 [LIST]
+[*] Releases now handled through Visual Studio Team Services. Contact me if you are interested in learning/helping out with development.
 [*] Currently installed version number is now correctly shown in Minion
 [*] Removed 'debug' folder and associated slash commands. No need to pollute users' autocomplete.
 [*] Changed menu slash command to `/provinatus`. One slash command never killed anyone.
