@@ -1,6 +1,6 @@
 {
   "name": "provinatus-build",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Build/Test/Deploy Provinatus",
   "main": "index.js",
   "repository": "https://github.com/michaelwestbrook/Provinatus-Build.git",
@@ -8,9 +8,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "deploy": "grunt clean:build copy replace",
-    "deploy-mikes": "grunt clean:build copy replace --releaseFolder=\"C:/Users/Mike/Documents/Elder Scrolls Online/live/AddOns/Provinatus\"",
-    "release": "grunt copy replace compress"
+    "build": "grunt clean:build copy:build replace:version",
+    "release": "grunt compress:release",
+    "deploy": "grunt copy:deploy"
   },
   "devDependencies": {
     "grunt": "^1.0.2",

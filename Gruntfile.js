@@ -1,25 +1,21 @@
 const provinatusConfig = require('./config');
 
 module.exports = function (grunt) {
-  const modName = 'Provinatus';
-
-  function getReleaseFolder() {
-    return grunt.option('releaseFolder') ? grunt.option('releaseFolder') : 'build';
-  }
-
   grunt.initConfig({
     clean: {
-      build: [getReleaseFolder()],
+      build: [`${provinatusConfig.buildFolder}/${provinatusConfig.modName}`],
+      release: [`${provinatusConfig.releaseFolder}/${provinatusConfig.modName}`],
+      deploy: [`${provinatusConfig.esoAddonDir}/${provinatusConfig.modName}`],
       options: {
         force: true
       }
     },
     copy: {
-      main: {
+      build: {
         files: [
           {
             expand: true,
-            cwd: `./${modName}`,
+            cwd: `${provinatusConfig.modName}`,
             src: [
               'function/**',
               'lang/**',
@@ -37,35 +33,46 @@ module.exports = function (grunt) {
               'TeamFormation.xml',
               'ZOSDisclosure.txt'
             ],
-            dest: `${getReleaseFolder()}/${modName}`
+            dest: `${provinatusConfig.buildFolder}/${provinatusConfig.modName}`
           }
         ],
+      },
+      deploy: {
+        files: [
+          {
+            expand: true,
+            cwd: provinatusConfig.buildFolder,
+            src: [`${provinatusConfig.modName}/**`],
+            dest: provinatusConfig.esoAddonDir
+          }
+        ]
       }
     },
     compress: {
-      main: {
+      release: {
         options: {
-          archive: `${getReleaseFolder()}/${modName}.zip`
+          archive: `${provinatusConfig.releaseFolder}/${provinatusConfig.modName}.zip`
         },
         files: [
-          { expand: true, cwd: getReleaseFolder(), src: [`./${modName}/**`], dest: `./` }
+          // Copy everything in build directory.
+          { expand: true, cwd: provinatusConfig.buildFolder, src: [`./**`] }
         ]
       }
     },
     replace: {
       version: {
-        src: [`${getReleaseFolder()}/${modName}/function/LAM2Panel.lua`, `${getReleaseFolder()}/${modName}/Provinatus.txt`],
+        src: [`${provinatusConfig.buildFolder}/**`],
         overwrite: true,
         replacements: [{
           from: '{{**DEVELOPMENTVERSION**}}',
-          to: grunt.option('versionNumber') ? grunt.option('versionNumber') : provinatusConfig.version
+          to: provinatusConfig.version
         }]
       }
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-clean')
-  grunt.loadNpmTasks('grunt-contrib-copy')
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadNpmTasks('grunt-text-replace');
 }
