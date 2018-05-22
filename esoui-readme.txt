@@ -3,7 +3,7 @@ Modified [URL="http://www.esoui.com/downloads/info1135-ProvisionsTeamFormation.h
 
 [SIZE="5"][COLOR="Plum"]Added player icon settings[/COLOR][/SIZE]
 [LIST]
-[*] Update compatibility for Summerset
+[*] Update to latest [URL="http://www.esoui.com/downloads/info7-LibAddonMenu.html"]LibAddonMenu[/URL]
 [/LIST]
 
 [SIZE="5"]Provision's Team Formation[/SIZE]
