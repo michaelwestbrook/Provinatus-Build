@@ -1,6 +1,6 @@
 {
   "name": "provinatus-build",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Build/Test/Deploy Provinatus",
   "main": "index.js",
   "repository": "https://github.com/michaelwestbrook/Provinatus-Build.git",
@@ -8,11 +8,14 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "grunt clean:build copy:build replace:version",
+    "backup-addons": "grunt compress:addons",
+    "build": "grunt lint clean:build copy:build replace:version",
     "release": "grunt compress:release",
-    "deploy": "grunt copy:deploy"
+    "deploy": "grunt copy:deploy",
+    "build-deploy": "yarn run build && yarn run deploy"
   },
   "devDependencies": {
+    "fs-extra": "^6.0.1",
     "grunt": "^1.0.2",
     "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-compress": "^1.4.3",

@@ -1,4 +1,6 @@
 const provinatusConfig = require('./config');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 
 module.exports = function (grunt) {
   grunt.initConfig({
@@ -57,15 +59,24 @@ module.exports = function (grunt) {
           // Copy everything in build directory.
           { expand: true, cwd: provinatusConfig.buildFolder, src: [`./**`] }
         ]
+      },
+      addons: {
+        options: {
+          archive: `./addon-backup/${provinatusConfig.version}.zip`
+        },
+        files: [
+          // Copy everything in build directory.
+          { expand: true, cwd: provinatusConfig.esoAddonDir, src: [`./**`] }
+        ]
       }
     },
     replace: {
       version: {
-        src: [`${provinatusConfig.buildFolder}/**`],
+        src: [`${provinatusConfig.buildFolder}/${provinatusConfig.modName}/${provinatusConfig.modName}.txt`, `${provinatusConfig.buildFolder}/${provinatusConfig.modName}/function/LAM2Panel.lua`],
         overwrite: true,
         replacements: [{
           from: '{{**DEVELOPMENTVERSION**}}',
-          to: provinatusConfig.version
+          to: grunt.option('versionNumber') ? grunt.option('versionNumber') : provinatusConfig.version
         }]
       }
     }
@@ -75,4 +86,20 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadNpmTasks('grunt-text-replace');
+  grunt.registerTask('lint', function () {
+    const done = this.async();
+    const errors = [];
+    // Run `luac` on lua files to catch simple syntax errors before.
+    const luacPromises = grunt.file.expand(provinatusConfig.luaFilesToLint).map(luaFile => {
+      return exec(`luac -p ${luaFile}`)
+        .catch(e => errors.push(e));
+    });
+    return Promise.all(luacPromises)
+      .then(() => {
+        if (errors.length > 0) {
+          grunt.fail.fatal(JSON.stringify(errors.map(error => error.stderr), null, 2));
+        }
+        done();
+      });
+  });
 }
